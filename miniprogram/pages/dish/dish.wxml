@@ -1,0 +1,35 @@
+<!-- pages/dish/dish.wxml -->
+<view class="container">
+  <image class="dish-banner" src="{{dish.image || '/images/default_dish.png'}}" mode="aspectFill"></image>
+  
+  <view class="info-card">
+    <view class="title-row">
+      <text class="name">{{dish.name}}</text>
+      <text class="price">¥{{dish.price}}</text>
+    </view>
+    <view class="desc">{{dish.description || '暂无描述'}}</view>
+    <view class="meta">
+      <text>评分 {{dish.score}}</text>
+      <text>月售 {{dish.sales}}</text>
+    </view>
+  </view>
+
+  <view class="review-section">
+    <view class="section-title">用户评价 ({{reviews.length}})</view>
+    <block wx:for="{{reviews}}" wx:key="id">
+      <view class="review-item">
+        <view class="review-header">
+          <text class="user-name">{{item.username}}</text>
+          <text class="review-score">{{item.score}}星</text>
+        </view>
+        <view class="review-content">{{item.content}}</view>
+        <text class="review-date">{{item.date}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- Bottom Action Bar -->
+  <view class="action-bar">
+    <view class="btn-cart" bindtap="addToCart">加入购物车</view>
+  </view>
+</view>

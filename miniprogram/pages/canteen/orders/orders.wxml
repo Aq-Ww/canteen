@@ -1,0 +1,31 @@
+<!-- pages/canteen/orders/orders.wxml -->
+<view class="container">
+  <view class="tabs">
+    <view class="tab {{currentTab==='pending'?'active':''}}" bindtap="switchTab" data-tab="pending">待接单</view>
+    <view class="tab {{currentTab==='processing'?'active':''}}" bindtap="switchTab" data-tab="processing">进行中</view>
+    <view class="tab {{currentTab==='completed'?'active':''}}" bindtap="switchTab" data-tab="completed">已完成</view>
+  </view>
+
+  <view class="order-list">
+    <block wx:for="{{orders}}" wx:key="id">
+      <view class="card">
+        <view class="row">
+          <text class="order-id">订单号: {{item.id}}</text>
+          <text class="time">{{item.time}}</text>
+        </view>
+        <view class="items">
+          <block wx:for="{{item.items}}" wx:for-item="dish" wx:key="name">
+            <text class="dish">{{dish.name}} x{{dish.count}}</text>
+          </block>
+        </view>
+        <view class="row total">
+          <text>合计: ¥{{item.totalPrice}}</text>
+        </view>
+        <view class="actions">
+          <button class="btn-action" wx:if="{{currentTab==='pending'}}" bindtap="updateStatus" data-id="{{item.id}}" data-status="processing">接单</button>
+          <button class="btn-action" wx:if="{{currentTab==='processing'}}" bindtap="updateStatus" data-id="{{item.id}}" data-status="completed">完成</button>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

@@ -1,0 +1,17 @@
+<!-- pages/my_reviews/my_reviews.wxml -->
+<view class="container">
+  <view class="review-list">
+    <block wx:for="{{reviews}}" wx:key="id">
+      <view class="review-card">
+        <view class="header">
+          <text class="shop-name">{{item.shopName}}</text>
+          <text class="date">{{item.date}}</text>
+        </view>
+        <view class="score">
+          <text>评分：{{item.score}}星</text>
+        </view>
+        <view class="content">{{item.content}}</view>
+      </view>
+    </block>
+  </view>
+</view>

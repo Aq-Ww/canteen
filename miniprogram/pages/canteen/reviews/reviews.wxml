@@ -1,0 +1,30 @@
+<!-- pages/canteen/reviews/reviews.wxml -->
+<view class="container">
+  <view class="stat-card">
+    <view class="stat-item">
+      <text class="num">4.5</text>
+      <text class="label">综合评分</text>
+    </view>
+    <view class="stat-item">
+      <text class="num">120</text>
+      <text class="label">今日评价</text>
+    </view>
+  </view>
+
+  <view class="filter-bar">
+    <text class="filter-title">全部评价</text>
+  </view>
+
+  <view class="review-list">
+    <block wx:for="{{reviews}}" wx:key="id">
+      <view class="review-card">
+        <view class="header">
+          <text class="user">用户 {{item.username}}</text>
+          <text class="score">{{item.score}}星</text>
+        </view>
+        <view class="content">{{item.content}}</view>
+        <text class="date">{{item.date}}</text>
+      </view>
+    </block>
+  </view>
+</view>

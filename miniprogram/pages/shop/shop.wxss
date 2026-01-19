@@ -1,0 +1,281 @@
+/* pages/shop/shop.wxss */
+.container {
+  padding-bottom: 120rpx; /* Space for cart bar */
+}
+
+.shop-header-card {
+  background: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 30rpx;
+}
+
+.shop-logo {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 12rpx;
+  background: #eee;
+  margin-right: 20rpx;
+}
+
+.shop-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.shop-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.score-num {
+  font-size: 32rpx;
+  color: #ff9800;
+  font-weight: bold;
+  margin-right: 10rpx;
+}
+
+.score-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* Sentiment */
+.sentiment-box {
+  margin-top: 20rpx;
+  padding: 20rpx 0;
+  border-top: 1rpx solid #eee;
+}
+
+.sentiment-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.sentiment-bar-container {
+  display: flex;
+  height: 40rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.sentiment-bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sentiment-bar.positive {
+  background: #52c41a;
+}
+
+.sentiment-bar.negative {
+  background: #ff4d4f;
+}
+
+.bar-text {
+  font-size: 20rpx;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Word Cloud */
+.word-cloud-box {
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.wc-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.wc-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.wc-item {
+  margin: 10rpx;
+  font-family: sans-serif;
+}
+
+/* Menu */
+.menu-list {
+  background: #fff;
+  padding: 0 30rpx;
+}
+
+.menu-title {
+  padding: 30rpx 0;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.dish-item {
+  display: flex;
+  padding-bottom: 30rpx;
+  margin-bottom: 30rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.dish-img {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 12rpx;
+  background: #eee;
+  margin-right: 20rpx;
+}
+
+.dish-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dish-name {
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.dish-sales {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dish-price {
+  font-size: 32rpx;
+  color: #ff4d4f;
+  font-weight: bold;
+}
+
+/* Stepper */
+.stepper {
+  display: flex;
+  align-items: center;
+}
+
+.btn-minus, .btn-plus {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+}
+
+.btn-minus {
+  border: 1rpx solid #ccc;
+  color: #666;
+}
+
+.btn-plus {
+  background: #007AFF;
+  color: #fff;
+}
+
+.count {
+  margin: 0 20rpx;
+  font-size: 28rpx;
+}
+
+/* Cart Bar */
+.cart-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  background: #333;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  padding-left: 30rpx;
+}
+
+.cart-icon-wrap {
+  position: relative;
+  top: -20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 8rpx solid #444; /* Match background usually */
+}
+
+.cart-icon {
+  width: 60rpx;
+  height: 60rpx;
+  /* Ideally white icon */
+  filter: invert(1); 
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 20rpx;
+  padding: 4rpx 10rpx;
+  border-radius: 20rpx;
+}
+
+.cart-total {
+  flex: 1;
+  padding-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.total-price {
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.delivery-text {
+  color: #999;
+  font-size: 20rpx;
+}
+
+.btn-checkout {
+  width: 240rpx;
+  height: 100%;
+  background: #555;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.btn-checkout.active {
+  background: #007AFF;
+}

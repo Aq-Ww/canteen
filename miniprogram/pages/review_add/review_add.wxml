@@ -1,0 +1,33 @@
+<!-- pages/review_add/review_add.wxml -->
+<view class="container">
+  <view class="shop-info">
+    <text>评价 {{shopName}}</text>
+  </view>
+
+  <view class="rating-section">
+    <text class="label">评分</text>
+    <view class="stars">
+      <block wx:for="{{[1,2,3,4,5]}}" wx:key="*this">
+        <image 
+          src="{{item <= score ? '/images/star_filled.png' : '/images/star_empty.png'}}" 
+          class="star-icon" 
+          bindtap="setScore" 
+          data-score="{{item}}"
+        ></image>
+      </block>
+    </view>
+    <text class="score-text">{{score}}星</text>
+  </view>
+
+  <view class="text-section">
+    <textarea 
+      class="review-input" 
+      placeholder="菜品口味如何，服务周到吗？" 
+      bindinput="onInputContent"
+      maxlength="200"
+    ></textarea>
+    <text class="word-count">{{content.length}}/200</text>
+  </view>
+
+  <button class="btn-primary" bindtap="submitReview">提交评价</button>
+</view>

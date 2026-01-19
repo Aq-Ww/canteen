@@ -1,0 +1,11 @@
+<!-- pages/pay_result/pay_result.wxml -->
+<view class="container">
+  <icon type="success" size="100" color="#52c41a" class="icon"/>
+  <text class="title">支付成功</text>
+  <text class="amount">¥{{amount}}</text>
+  
+  <view class="btn-group">
+    <button class="btn-primary" bindtap="goOrders">查看订单</button>
+    <button class="btn-default" bindtap="goHome">返回首页</button>
+  </view>
+</view>

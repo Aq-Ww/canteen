@@ -1,0 +1,31 @@
+<!-- pages/login/login.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">智慧食堂点餐系统</text>
+    <text class="subtitle">Smart Canteen</text>
+  </view>
+
+  <view class="form-card">
+    <view class="input-group">
+      <text class="label">账号</text>
+      <input class="input" placeholder="请输入用户名" bindinput="onInputUsername" />
+    </view>
+    <view class="input-group">
+      <text class="label">密码</text>
+      <input class="input" password placeholder="请输入密码" bindinput="onInputPassword" />
+    </view>
+    
+    <view class="role-group">
+      <radio-group class="radio-group" bindchange="onRoleChange">
+        <label class="radio">
+          <radio value="user" checked="{{role === 'user'}}"/>食客
+        </label>
+        <label class="radio">
+          <radio value="admin" checked="{{role === 'admin'}}"/>食堂管理员
+        </label>
+      </radio-group>
+    </view>
+
+    <button class="btn-primary" bindtap="handleLogin">登 录</button>
+  </view>
+</view>

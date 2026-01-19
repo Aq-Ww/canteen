@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/home/home",
+    "pages/shop/shop",
+    "pages/dish/dish",
+    "pages/cart/cart",
+    "pages/checkout/checkout",
+    "pages/pay_result/pay_result",
+    "pages/orders/orders",
+    "pages/my_reviews/my_reviews",
+    "pages/review_add/review_add",
+    "pages/canteen/dashboard/dashboard",
+    "pages/canteen/orders/orders",
+    "pages/canteen/reviews/reviews"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "智慧食堂",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#007AFF",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_active.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "images/cart.png",
+        "selectedIconPath": "images/cart_active.png"
+      },
+      {
+        "pagePath": "pages/orders/orders",
+        "text": "订单",
+        "iconPath": "images/order.png",
+        "selectedIconPath": "images/order_active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

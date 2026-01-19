@@ -1,0 +1,53 @@
+<!-- pages/canteen/dashboard/dashboard.wxml -->
+<view class="container">
+  <view class="header-bar">
+    <text class="title">经营分析看板</text>
+    <text class="subtitle">Data Analysis</text>
+  </view>
+
+  <!-- Sales Prediction -->
+  <view class="card">
+    <view class="card-title">销量预测 (未来3天)</view>
+    <view class="chart-container">
+      <canvas type="2d" id="salesChart" class="chart-canvas"></canvas>
+    </view>
+    <view class="prediction-list">
+      <block wx:for="{{predictions}}" wx:key="date">
+        <view class="pred-item">
+          <text class="date">{{item.date}}</text>
+          <text class="val">{{item.value}}单</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- Negative Review Clusters -->
+  <view class="card">
+    <view class="card-title">差评主题分析</view>
+    <block wx:for="{{clusters}}" wx:key="topic">
+      <view class="cluster-item">
+        <view class="cluster-header">
+          <text class="topic">{{item.topic}}</text>
+          <text class="ratio">{{item.ratio}}%</text>
+        </view>
+        <progress percent="{{item.ratio}}" stroke-width="6" activeColor="#ff4d4f" backgroundColor="#eee" border-radius="6" />
+        <view class="example-box">
+          <text class="example-label">典型评价：</text>
+          <text class="example-text">"{{item.example}}"</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- Quick Actions -->
+  <view class="action-grid">
+    <view class="action-btn" bindtap="goOrders">
+      <image class="action-icon" src="/images/order_manage.png"></image>
+      <text>订单管理</text>
+    </view>
+    <view class="action-btn" bindtap="goReviews">
+      <image class="action-icon" src="/images/review_manage.png"></image>
+      <text>评价管理</text>
+    </view>
+  </view>
+</view>

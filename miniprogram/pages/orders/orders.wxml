@@ -1,0 +1,35 @@
+<!-- pages/orders/orders.wxml -->
+<view class="container">
+  <view class="tabs">
+    <view class="tab {{currentTab==='all'?'active':''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab {{currentTab==='pending'?'active':''}}" bindtap="switchTab" data-tab="pending">待支付</view>
+    <view class="tab {{currentTab==='paid'?'active':''}}" bindtap="switchTab" data-tab="paid">已支付</view>
+    <view class="tab {{currentTab==='completed'?'active':''}}" bindtap="switchTab" data-tab="completed">已完成</view>
+  </view>
+
+  <scroll-view scroll-y class="order-list">
+    <block wx:for="{{orders}}" wx:key="id">
+      <view class="order-card">
+        <view class="card-header">
+          <text class="shop-name">{{item.shopName}}</text>
+          <text class="status {{item.status}}">{{statusMap[item.status]}}</text>
+        </view>
+        <view class="card-body">
+          <block wx:for="{{item.items}}" wx:for-item="dish" wx:key="id">
+            <view class="dish-row">
+              <text class="dish-name">{{dish.name}}</text>
+              <text class="dish-count">x{{dish.count}}</text>
+            </view>
+          </block>
+          <view class="total-info">
+            <text>共{{item.totalCount}}件，实付</text>
+            <text class="price">¥{{item.totalPrice}}</text>
+          </view>
+        </view>
+        <view class="card-footer" wx:if="{{item.status === 'completed'}}">
+          <button class="btn-review" size="mini" bindtap="goReview" data-order="{{item}}">去评价</button>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+</view>

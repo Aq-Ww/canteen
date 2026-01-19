@@ -1,0 +1,79 @@
+<!-- pages/shop/shop.wxml -->
+<view class="container">
+  <!-- Shop Header -->
+  <view class="shop-header-card">
+    <view class="info-row">
+      <image class="shop-logo" src="{{shop.image || '/images/default_shop.png'}}"></image>
+      <view class="shop-meta">
+        <text class="shop-title">{{shop.name}}</text>
+        <view class="score-row">
+          <text class="score-num">{{shop.score}}</text>
+          <text class="score-label">综合评分</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- Sentiment Analysis Visualization -->
+    <view class="sentiment-box" wx:if="{{shop.sentiment}}">
+      <view class="sentiment-title">口碑可视化</view>
+      <view class="sentiment-bar-container">
+        <view class="sentiment-bar positive" style="width: {{shop.sentiment.positive_ratio}}%">
+          <text class="bar-text">好评 {{shop.sentiment.positive_ratio}}%</text>
+        </view>
+        <view class="sentiment-bar negative" style="width: {{shop.sentiment.negative_ratio}}%">
+          <text class="bar-text">差评 {{shop.sentiment.negative_ratio}}%</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Word Cloud Visualization -->
+    <view class="word-cloud-box" wx:if="{{shop.keywords && shop.keywords.length > 0}}">
+      <view class="wc-title">大家都在说</view>
+      <view class="wc-container">
+        <block wx:for="{{shop.keywords}}" wx:key="word">
+          <text class="wc-item" 
+                style="font-size: {{item.weight * 2 + 20}}rpx; color: {{item.color}}; opacity: {{item.weight/10 + 0.5}}">
+            {{item.word}}
+          </text>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- Menu List -->
+  <view class="menu-list">
+    <view class="menu-title">菜单</view>
+    <block wx:for="{{menu}}" wx:key="id">
+      <view class="dish-item" bindtap="goToDish" data-id="{{item.id}}">
+        <image class="dish-img" src="{{item.image || '/images/default_dish.png'}}" mode="aspectFill"></image>
+        <view class="dish-info">
+          <text class="dish-name">{{item.name}}</text>
+          <text class="dish-sales">月售 {{item.sales}}</text>
+          <view class="price-row">
+            <text class="dish-price">¥{{item.price}}</text>
+            <view class="stepper">
+              <view class="btn-minus" catchtap="removeFromCart" data-item="{{item}}">-</view>
+              <text class="count">{{cartCounts[item.id] || 0}}</text>
+              <view class="btn-plus" catchtap="addToCart" data-item="{{item}}">+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- Bottom Cart Bar -->
+  <view class="cart-bar" bindtap="goToCart">
+    <view class="cart-icon-wrap">
+      <image class="cart-icon" src="/images/cart.png"></image>
+      <view class="badge" wx:if="{{totalCount > 0}}">{{totalCount}}</view>
+    </view>
+    <view class="cart-total">
+      <text class="total-price">¥{{totalPrice}}</text>
+      <text class="delivery-text">免配送费</text>
+    </view>
+    <view class="btn-checkout {{totalCount > 0 ? 'active' : ''}}" catchtap="goToCheckout">
+      去结算
+    </view>
+  </view>
+</view>

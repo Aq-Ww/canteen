@@ -1,0 +1,77 @@
+/* pages/review_add/review_add.wxss */
+.container {
+  padding: 30rpx;
+  background: #fff;
+}
+
+.shop-info {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 40rpx;
+  border-bottom: 1rpx solid #eee;
+  padding-bottom: 20rpx;
+}
+
+.rating-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.label {
+  margin-right: 30rpx;
+  font-size: 30rpx;
+}
+
+.stars {
+  display: flex;
+}
+
+.star-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 10rpx;
+  /* Use CSS filter or actual images. For simplicity, assuming images exist or use colors blocks if not */
+  background-color: #eee; 
+}
+
+/* Simulate stars with css if images missing */
+.star-icon {
+  background-color: transparent; /* Reset */
+}
+
+/* Fallback if no images: We need images/star_filled.png in real app. 
+   I will assume user puts images later or I use text '★' */
+   
+.rating-section {
+  /* Redefine to use text for stars if no images */
+}
+
+.score-text {
+  margin-left: 20rpx;
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.text-section {
+  position: relative;
+  margin-bottom: 60rpx;
+}
+
+.review-input {
+  width: 100%;
+  height: 300rpx;
+  background: #f9f9f9;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+}
+
+.word-count {
+  position: absolute;
+  bottom: 20rpx;
+  right: 20rpx;
+  font-size: 24rpx;
+  color: #999;
+}

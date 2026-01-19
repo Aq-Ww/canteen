@@ -1,0 +1,45 @@
+<!-- pages/home/home.wxml -->
+<view class="container">
+  <!-- Recommendations Section -->
+  <view class="section">
+    <view class="section-title">
+      <text>猜你喜欢</text>
+      <text class="subtitle">Based on your taste</text>
+    </view>
+    <scroll-view scroll-x class="recommend-scroll" enable-flex>
+      <block wx:for="{{recommendations}}" wx:key="id">
+        <view class="recommend-item" bindtap="goToDish" data-id="{{item.id}}">
+          <image class="rec-img" src="{{item.image || '/images/default_dish.png'}}" mode="aspectFill"></image>
+          <view class="rec-info">
+            <text class="rec-name">{{item.name}}</text>
+            <text class="rec-price">¥{{item.price}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <!-- Shop List Section -->
+  <view class="section">
+    <view class="section-title">
+      <text>精选食堂</text>
+    </view>
+    <view class="shop-list">
+      <block wx:for="{{shops}}" wx:key="id">
+        <view class="shop-card" bindtap="goToShop" data-id="{{item.id}}">
+          <image class="shop-img" src="{{item.image || '/images/default_shop.png'}}" mode="aspectFill"></image>
+          <view class="shop-info">
+            <view class="shop-header">
+              <text class="shop-name">{{item.name}}</text>
+              <text class="shop-score">{{item.score}}分</text>
+            </view>
+            <text class="shop-desc">{{item.description || '暂无介绍'}}</text>
+            <view class="shop-tags">
+              <text class="tag tag-blue" wx:if="{{item.reviewCount}}">{{item.reviewCount}}条评价</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

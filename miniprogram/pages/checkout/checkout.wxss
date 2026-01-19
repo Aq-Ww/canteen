@@ -1,0 +1,56 @@
+/* pages/checkout/checkout.wxss */
+.container {
+  padding: 30rpx;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+  border-bottom: 1rpx solid #eee;
+  padding-bottom: 20rpx;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f9f9f9;
+}
+
+.name {
+  flex: 1;
+  font-size: 30rpx;
+}
+
+.count {
+  width: 80rpx;
+  text-align: right;
+  color: #999;
+}
+
+.price {
+  width: 120rpx;
+  text-align: right;
+  font-weight: bold;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid #eee;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.total-price {
+  color: #ff4d4f;
+}
+
+.pay-btn-area {
+  margin-top: 80rpx;
+}

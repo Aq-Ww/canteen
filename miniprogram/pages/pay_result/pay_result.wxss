@@ -1,0 +1,35 @@
+/* pages/pay_result/pay_result.wxss */
+.container {
+  align-items: center;
+  padding-top: 100rpx;
+  background: #fff;
+}
+
+.icon {
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.amount {
+  font-size: 60rpx;
+  font-weight: bold;
+  margin-bottom: 80rpx;
+}
+
+.btn-group {
+  width: 80%;
+}
+
+.btn-primary {
+  margin-bottom: 30rpx;
+}
+
+.btn-default {
+  background: #f5f5f5;
+  color: #666;
+}
