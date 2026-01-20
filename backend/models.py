@@ -17,7 +17,8 @@ class User(db.Model):
 # 食堂店铺表
 class Shop(db.Model):
     __tablename__ = 'shops'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # 适配数据库列名 shop_id
+    id = db.Column('shop_id', db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500))
     image = db.Column(db.String(255))
@@ -30,7 +31,8 @@ class Shop(db.Model):
 class Dish(db.Model):
     __tablename__ = 'dishes'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    shop_id = db.Column(db.Integer, db.ForeignKey('shops.id'), nullable=False)
+    # 外键指向 shops.shop_id
+    shop_id = db.Column(db.Integer, db.ForeignKey('shops.shop_id'), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
     image = db.Column(db.String(255))
@@ -45,18 +47,22 @@ class Dish(db.Model):
 # 订单表
 class Order(db.Model):
     __tablename__ = 'orders'
+    # 适配已修正的列名 'id'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    shop_id = db.Column(db.Integer, db.ForeignKey('shops.id'), nullable=False)
+    # 外键指向 shops.shop_id
+    shop_id = db.Column(db.Integer, db.ForeignKey('shops.shop_id'), nullable=False)
     total_price = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(20), default='pending') # pending, processing, completed
-    created_at = db.Column(db.DateTime, default=datetime.now)
+    # 适配数据库中的 text 类型和可能的格式问题
+    created_at = db.Column(db.String(100))
     
     items = db.relationship('OrderItem', backref='order', lazy=True)
 
 # 订单详情表
 class OrderItem(db.Model):
     __tablename__ = 'order_items'
+    # 适配已修正的列名 'id'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
     dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), nullable=False)
@@ -72,8 +78,9 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=True) # 关联订单
     dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), nullable=True) # 关联菜品(如果是按菜评价)
-    shop_id = db.Column(db.Integer, db.ForeignKey('shops.id'), nullable=False)
+    shop_id = db.Column(db.Integer, db.ForeignKey('shops.shop_id'), nullable=False)
     score = db.Column(db.Integer, nullable=False) # 1-5
     content = db.Column(db.Text)
-    sentiment = db.Column(db.String(20)) # positive, negative, neutral
-    created_at = db.Column(db.DateTime, default=datetime.now)
+    # 数据库中无 sentiment 字段，移除
+    # 适配拼写错误 ceated_at
+    created_at = db.Column('ceated_at', db.String(100))
