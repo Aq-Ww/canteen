@@ -21,12 +21,26 @@
       "outputPath": ""
     },
     "ignoreUploadUnusedFiles": true,
-    "urlCheck": false
+    "urlCheck": false,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "srcMiniprogramRoot": "miniprogram/"
+  "srcMiniprogramRoot": "miniprogram/",
+  "appid": "wx1331f0524db69c0e",
+  "simulatorPluginLibVersion": {}
 }

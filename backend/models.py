@@ -21,7 +21,7 @@ class Shop(db.Model):
     id = db.Column('shop_id', db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500))
-    image = db.Column(db.String(255))
+    image = db.Column(db.Text)
     score = db.Column(db.Float, default=5.0) # 综合评分
     
     dishes = db.relationship('Dish', backref='shop', lazy=True)
@@ -35,7 +35,7 @@ class Dish(db.Model):
     shop_id = db.Column(db.Integer, db.ForeignKey('shops.shop_id'), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    image = db.Column(db.String(255))
+    image = db.Column(db.Text)
     description = db.Column(db.String(500))
     score = db.Column(db.Float, default=5.0)
     sales = db.Column(db.Integer, default=0)
