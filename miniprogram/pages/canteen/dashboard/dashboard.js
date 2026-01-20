@@ -14,14 +14,19 @@ Page({
   fetchData() {
     request('/api/canteen/dashboard')
       .then(res => {
+        if (!res.data) throw new Error("No data");
         this.setData({
-          predictions: res.data.predictions,
-          clusters: res.data.clusters
+          predictions: res.data.predictions || [],
+          clusters: res.data.clusters || []
         });
-        this.drawChart(res.data.salesHistory, res.data.predictions);
+        // 延迟绘制以确保节点就绪
+        setTimeout(() => {
+          this.drawChart(res.data.salesHistory || [], res.data.predictions || []);
+        }, 200);
       })
-      .catch(() => {
-        // Mock Data
+      .catch(err => {
+        console.error("Dashboard fetch failed", err);
+        // Fallback to Mock Data
         const predictions = [
           { date: '1-20', value: 120 },
           { date: '1-21', value: 135 },

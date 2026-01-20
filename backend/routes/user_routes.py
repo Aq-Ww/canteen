@@ -101,28 +101,39 @@ def get_dish_detail(dish_id):
 @user_bp.route('/order/create', methods=['POST'])
 def create_order():
     data = request.json
-    # 简化：假设前端传来的cart list属于同一个店铺，或者后端拆单。这里假设单店铺订单。
     items = data.get('items', [])
     total_price = data.get('total', 0)
-    user_id = 1 # Mock User ID
+    
+    # 假设当前用户ID为1（实际应从Token解析）
+    user_id = 1
     
     if not items:
-        return error_response("购物车为空")
+        return error_response("订单为空")
         
-    shop_id = items[0]['shopId']
+    # 创建订单
+    # 假设所有菜品来自同一个店铺，或者订单归属第一个菜品的店铺
+    # 简化处理：取第一个菜品的店铺ID
+    shop_id = items[0].get('shopId')
+    if not shop_id:
+        # Fallback if shopId is missing
+        first_dish_id = items[0].get('dishId')
+        first_dish = Dish.query.get(first_dish_id)
+        shop_id = first_dish.shop_id if first_dish else 1
     
-    new_order = Order(
+    order = Order(
         user_id=user_id,
         shop_id=shop_id,
         total_price=total_price,
-        status='paid' # 模拟支付直接成功
+        status='paid', # 模拟支付直接成功
+        created_at=datetime.now()
     )
-    db.session.add(new_order)
-    db.session.flush() # Get Order ID
+    db.session.add(order)
+    db.session.flush() # 获取order.id
     
+    # 创建订单项
     for item in items:
         order_item = OrderItem(
-            order_id=new_order.id,
+            order_id=order.id,
             dish_id=item['dishId'],
             count=item['count'],
             price_snapshot=item['price']
@@ -135,7 +146,8 @@ def create_order():
             dish.sales += item['count']
             
     db.session.commit()
-    return success_response({"orderId": new_order.id}, "下单成功")
+    
+    return success_response({"orderId": order.id}, "订单创建成功")
 
 # 我的订单
 @user_bp.route('/orders', methods=['GET'])

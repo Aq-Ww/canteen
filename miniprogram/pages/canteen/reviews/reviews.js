@@ -11,12 +11,18 @@ Page({
   },
 
   fetchReviews() {
-    // Mock
-    this.setData({
-      reviews: [
-        { id: 1, username: 'UserA', score: 5, content: '非常满意', date: '12:00' },
-        { id: 2, username: 'UserB', score: 2, content: '太咸了', date: '11:30' }
-      ]
-    });
+    request('/api/canteen/reviews')
+      .then(res => {
+        this.setData({ reviews: res.data || [] });
+      })
+      .catch(err => {
+        console.error("Fetch reviews failed", err);
+        // Fallback to Mock Data
+        this.setData({
+          reviews: [
+            { id: 1, username: 'Mock-User', score: 5, content: '后端未连接，显示模拟数据', date: '12:00' }
+          ]
+        });
+      });
   }
 });

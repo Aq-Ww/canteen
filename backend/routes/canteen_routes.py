@@ -27,7 +27,11 @@ def get_orders():
     # 实际应从 login token 获取 shop_id
     status = request.args.get('status', 'pending')
     
-    orders = Order.query.filter_by(status=status).order_by(Order.created_at.desc()).all()
+    if status == 'pending':
+        # "待接单" 包含 pending (未支付/待处理) 和 paid (已支付/待接单)
+        orders = Order.query.filter(Order.status.in_(['pending', 'paid'])).order_by(Order.created_at.desc()).all()
+    else:
+        orders = Order.query.filter_by(status=status).order_by(Order.created_at.desc()).all()
     
     data = []
     for o in orders:

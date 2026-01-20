@@ -23,35 +23,26 @@ Page({
   },
 
   fetchOrders() {
-    // Mock Data
-    const mockOrders = [
-      {
-        id: 'O001', shopName: '第1食堂', status: 'completed', totalPrice: 36, totalCount: 2,
-        items: [{name: '红烧肉', count: 1}, {name: '米饭', count: 1}]
-      },
-      {
-        id: 'O002', shopName: '第3食堂', status: 'paid', totalPrice: 15, totalCount: 1,
-        items: [{name: '青椒肉丝盖饭', count: 1}]
-      },
-      {
-        id: 'O003', shopName: '第2食堂', status: 'pending', totalPrice: 12, totalCount: 1,
-        items: [{name: '宫保鸡丁', count: 1}]
-      }
-    ];
-
-    let filtered = mockOrders;
-    if (this.data.currentTab !== 'all') {
-      filtered = mockOrders.filter(o => o.status === this.data.currentTab);
-    }
-    
-    this.setData({ orders: filtered });
-
-    // Real Request
-    /*
-    request('/api/orders?status=' + this.data.currentTab).then(res => {
-      this.setData({ orders: res.data });
-    });
-    */
+    request('/api/orders?status=' + this.data.currentTab)
+      .then(res => {
+        this.setData({ orders: res.data || [] });
+      })
+      .catch(err => {
+        console.error("Fetch orders failed, using mock data", err);
+        // Fallback to Mock Data if backend is offline
+        const mockOrders = [
+          {
+            id: 'Local-001', shopName: '示例-第1食堂', status: 'completed', totalPrice: 36, totalCount: 2,
+            items: [{name: '红烧肉', count: 1}, {name: '米饭', count: 1}],
+            time: '2023-10-01 12:00'
+          }
+        ];
+        let filtered = mockOrders;
+        if (this.data.currentTab !== 'all') {
+          filtered = mockOrders.filter(o => o.status === this.data.currentTab);
+        }
+        this.setData({ orders: filtered });
+      });
   },
 
   goReview(e) {
