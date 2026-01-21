@@ -237,7 +237,7 @@ def get_my_orders():
             dish_name = "未知菜品"
             if i.dish:
                 dish_name = i.dish.name
-            items.append({"name": dish_name, "count": i.count})
+            items.append({"id": i.id, "name": dish_name, "count": i.count})
             total_count += i.count
             
         # 防御性处理 shop 关联

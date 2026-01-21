@@ -15,7 +15,7 @@
           <text class="status {{item.status}}">{{statusMap[item.status]}}</text>
         </view>
         <view class="card-body">
-          <block wx:for="{{item.items}}" wx:for-item="dish" wx:key="id">
+          <block wx:for="{{item.items}}" wx:for-item="dish" wx:key="{{dish.id}}">
             <view class="dish-row">
               <text class="dish-name">{{dish.name}}</text>
               <text class="dish-count">x{{dish.count}}</text>
