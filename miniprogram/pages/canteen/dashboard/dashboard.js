@@ -28,21 +28,21 @@ Page({
         console.error("Dashboard fetch failed", err);
         // Fallback to Mock Data
         const predictions = [
-          { date: '1-20', value: 120 },
-          { date: '1-21', value: 135 },
-          { date: '1-22', value: 110 }
+          { date: '1-13', value: 120 },
+          { date: '1-14', value: 135 },
+          { date: '1-15', value: 110 }
         ];
         const clusters = [
-          { topic: '口味过咸', ratio: 45, example: '今天的红烧肉太咸了，没法吃' },
-          { topic: '分量少', ratio: 30, example: '两口就没了，根本吃不饱' },
-          { topic: '服务态度', ratio: 25, example: '阿姨打饭手抖' }
+          { topic: '口味问题', ratio: 33, example: '今天的红烧肉太咸了，没法吃' },
+          { topic: '服务问题', ratio: 32, example: '阿姨打饭太慢了，排队等了很久' },
+          { topic: '分量问题', ratio: 17, example: '两口就没了，根本吃不饱' },
+          { topic: '价格问题', ratio: 15, example: '价格有点贵，性价比不高' },
+          { topic: '质量问题', ratio: 3, example: '饭菜里发现了异物，不卫生' }
         ];
         const salesHistory = [
-          { date: '1-15', value: 100 },
-          { date: '1-16', value: 110 },
-          { date: '1-17', value: 95 },
-          { date: '1-18', value: 130 },
-          { date: '1-19', value: 125 }
+          { date: '1-10', value: 100 },
+          { date: '1-11', value: 110 },
+          { date: '1-12', value: 125 }
         ];
 
         this.setData({ predictions, clusters });
@@ -70,7 +70,7 @@ Page({
         const width = res[0].width;
         const height = res[0].height;
 
-        // Combine data
+        // Combine data to calculate max value
         const allData = [...history, ...predictions];
         const values = allData.map(d => d.value);
         const maxVal = Math.max(...values) * 1.2;
@@ -78,6 +78,9 @@ Page({
         const padding = 30;
         const chartW = width - padding * 2;
         const chartH = height - padding * 2;
+        
+        // Calculate stepX once for all uses
+        const stepX = allData.length > 1 ? chartW / (allData.length - 1) : 0;
         
         // Draw Axes
         ctx.beginPath();
@@ -88,23 +91,70 @@ Page({
         ctx.lineTo(width - padding, height - padding);
         ctx.stroke();
 
-        // Draw Line
-        ctx.beginPath();
-        ctx.strokeStyle = '#007AFF';
-        ctx.lineWidth = 2;
-        
-        const stepX = chartW / (allData.length - 1);
-        
-        allData.forEach((d, i) => {
-          const x = padding + i * stepX;
-          const y = height - padding - (d.value / maxVal) * chartH;
-          if (i === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            ctx.lineTo(x, y);
-          }
-        });
-        ctx.stroke();
+        // Draw Y-axis Labels (订单数量)
+        ctx.font = '12px sans-serif';
+        ctx.fillStyle = '#666';
+        ctx.textAlign = 'right';
+        const ySteps = 5; // 5 steps on Y-axis
+        for (let i = 0; i <= ySteps; i++) {
+          const y = padding + (chartH / ySteps) * i;
+          const value = Math.round(maxVal - (maxVal / ySteps) * i);
+          
+          // Draw grid line
+          ctx.beginPath();
+          ctx.strokeStyle = '#f0f0f0';
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(padding, y);
+          ctx.lineTo(width - padding, y);
+          ctx.stroke();
+          
+          // Draw label
+          ctx.fillText(value, padding - 5, y + 4);
+        }
+
+        // Draw History Line (solid line)
+        if (history.length > 0) {
+          ctx.beginPath();
+          ctx.strokeStyle = '#007AFF'; // Blue for history
+          ctx.lineWidth = 2;
+          ctx.setLineDash([]); // Solid line
+          
+          history.forEach((d, i) => {
+            const x = padding + i * stepX;
+            const y = height - padding - (d.value / maxVal) * chartH;
+            if (i === 0) {
+              ctx.moveTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+          });
+          ctx.stroke();
+        }
+
+        // Draw Prediction Line (dashed line)
+        if (predictions.length > 0) {
+          ctx.beginPath();
+          ctx.strokeStyle = '#ff4d4f'; // Red for predictions
+          ctx.lineWidth = 2;
+          ctx.setLineDash([5, 5]); // Dashed line
+          
+          const historyLength = history.length;
+          
+          predictions.forEach((d, i) => {
+            const x = padding + (historyLength + i) * stepX;
+            const y = height - padding - (d.value / maxVal) * chartH;
+            if (i === 0) {
+              // Start from the last history point
+              const lastHistoryX = padding + (historyLength - 1) * stepX;
+              const lastHistoryY = height - padding - (history[historyLength - 1].value / maxVal) * chartH;
+              ctx.moveTo(lastHistoryX, lastHistoryY);
+              ctx.lineTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+          });
+          ctx.stroke();
+        }
 
         // Draw Points
         allData.forEach((d, i) => {
@@ -112,9 +162,19 @@ Page({
           const y = height - padding - (d.value / maxVal) * chartH;
           
           ctx.beginPath();
-          ctx.fillStyle = i >= history.length ? '#ff4d4f' : '#007AFF'; // Red for prediction
+          ctx.fillStyle = i >= history.length ? '#ff4d4f' : '#007AFF'; // Red for prediction, blue for history
           ctx.arc(x, y, 3, 0, 2 * Math.PI);
           ctx.fill();
+        });
+
+        // Draw X-axis Date Labels
+        ctx.font = '12px sans-serif';
+        ctx.fillStyle = '#666';
+        ctx.textAlign = 'center';
+        allData.forEach((d, i) => {
+          const x = padding + i * stepX;
+          const y = height - padding + 15; // Position below the x-axis
+          ctx.fillText(d.date, x, y);
         });
       });
   },

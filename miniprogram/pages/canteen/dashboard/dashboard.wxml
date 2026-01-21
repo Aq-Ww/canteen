@@ -11,14 +11,6 @@
     <view class="chart-container">
       <canvas type="2d" id="salesChart" class="chart-canvas"></canvas>
     </view>
-    <view class="prediction-list">
-      <block wx:for="{{predictions}}" wx:key="date">
-        <view class="pred-item">
-          <text class="date">{{item.date}}</text>
-          <text class="val">{{item.value}}单</text>
-        </view>
-      </block>
-    </view>
   </view>
 
   <!-- Negative Review Clusters -->

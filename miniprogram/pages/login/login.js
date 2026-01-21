@@ -57,6 +57,8 @@ Page({
   mockLogin(role) {
     wx.setStorageSync('token', 'mock-token-123');
     wx.setStorageSync('role', role);
+    // 设置用户ID
+    wx.setStorageSync('userId', 1);
     wx.showToast({ title: '模拟登录成功' });
     setTimeout(() => {
       if (role === 'user') {

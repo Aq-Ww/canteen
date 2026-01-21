@@ -12,6 +12,10 @@
           <image class="rec-img" src="{{item.image || '/images/default_dish.png'}}" mode="aspectFill"></image>
           <view class="rec-info">
             <text class="rec-name">{{item.name}}</text>
+            <view class="rec-meta">
+              <text class="rec-score">★{{item.score}}</text>
+              <text class="rec-sales">{{item.sales}}份</text>
+            </view>
             <text class="rec-price">¥{{item.price}}</text>
           </view>
         </view>

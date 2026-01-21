@@ -48,6 +48,8 @@
   padding: 16rpx;
   display: flex;
   flex-direction: column;
+  height: 120rpx;
+  justify-content: space-between;
 }
 
 .rec-name {
@@ -56,13 +58,31 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 36rpx;
+}
+
+.rec-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22rpx;
+  margin: 2rpx 0;
+  line-height: 28rpx;
+}
+
+.rec-score {
+  color: #ff9800;
+}
+
+.rec-sales {
+  color: #999;
 }
 
 .rec-price {
   font-size: 30rpx;
   color: #ff4d4f;
   font-weight: bold;
-  margin-top: 8rpx;
+  margin-top: 2rpx;
+  line-height: 32rpx;
 }
 
 /* Shop List */

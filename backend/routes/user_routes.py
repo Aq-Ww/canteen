@@ -17,8 +17,8 @@ def parse_time(time_str):
 # 首页推荐
 @user_bp.route('/recommendations', methods=['GET'])
 def get_recommendations():
-    # 假设从header或token获取user_id，这里简化为固定ID或参数
-    user_id = 1 
+    # 从请求参数获取user_id
+    user_id = request.args.get('userId', 1, type=int)
     data = RecommendService.get_recommendations(user_id)
     return success_response(data)
 
